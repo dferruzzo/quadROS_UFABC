@@ -34,4 +34,4 @@ O container `quad_ufabc_ros` com acesso ao DISPLAY é criado e iniciado.
 $ ./start_container.sh
 ```
 ## VSCode Docker Plugin
-Para trabalhar com o conteúdo do container utilizo o VSCode com o plugin Docker, que permite acessar o conteúdo do container e trabalhar nele.
+Para trabalhar com o conteúdo do container utilizo o VSCode com o [plugin Docker](https://github.com/microsoft/vscode-docker), que permite acessar o conteúdo do container e trabalhar nele.
