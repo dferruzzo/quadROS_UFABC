@@ -1,96 +1,37 @@
-# quadROS UFABC
+# QuadROS UFABC
+Esse repositório é um fork do [mateusribs](https://github.com/mateusribs/quadROS_UFABC), que desenvolveu um sistema de "Position and Attitude Estimation of a Quadrotor Using Computer Vision", todos os créditos são dele. Aqui utilizamos o entorno de simulação ROS-Gazebo que ele implementou como base.
 
-This repository aims to maintain the research made in my master's thesis. The title of the project is "Position and Attitude Estimation of a Quadrotor Using Computer Vision", where the main task is to accomplish indoor navigation in a GPS-denied environment using computer vision techniques. The state estimation was made using Error State Kalman Filter [1] and for the quadrotor's control, it was implemented a cascade PID. The simulations are available in [Video Simulation](https://youtu.be/_FUcOvvbstQ).
+# Instalação
+As instruções aqui mostradas são para sistemas operacionais baseados em distros Linux. 
 
-
-# Installation
-
-## Docker (Recommended)
-
-Clone this repository and follow the instructions:
-
-1 - Build a Docker image:
-
+## Docker 
+Precisa instalar o Docker engine (não o Docker Desktop), veja o tutorial aqui: [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/). Também precisa o git
 ```
-~$ docker build . -t quad_ufabc:latest
-```
-2 - Run shell script to create the Docker container:
-
-```
-~$ sudo bash start_container.bash
+$ sudo apt-get install git-all
 ```
 
-3 - Execute the commands located on **Running application** section of this repository.
+1. Clone esse repositório
+```
+git clone https://github.com/dferruzzo/quadROS_UFABC.git
+```
+Entre no diretório `cd quadROS_UFABC/`
 
-## Linux (Ubuntu 20.04 LS)
-
-The ROS version used in this work is Noetic. The official installation guide can be accesed on:[ROS Noetic Installation](http://wiki.ros.org/noetic/Installation/Ubuntu). It is reccommended in 1.4 Installation topic, the choice of the option **Desktop-Full Install**, because it already install all the dependencies, including the Gazebo simulator. 
-
-After ROS/Gazebo installation, it is necessary create a workspace. Open the terminal on Ubuntu, and follow the instrunctions:
-
-- Install some dependencies of ROS:
+2. Crie a Docker imagem a partir do Dockerfile:
 
 ```
-~$ sudo apt-get install ros-noetic-ros-control ros-noetic-ros-controllers -y
+$ docker build . -t quad_ufabc:latest
+$ docker images
 ```
-
-- Create a work directory:
-
-```
-~$ mkdir /path/to/work/directory
-```
-
-- On the created directory, create another folder called **src** and initialize the workspace:
+3. Rode o shell script `create_container.sh` para criar o Docker container `quad_ufabc_ros`:
 
 ```
-~$ mkdir /path/to/work/directory/src
-~$ cd /path/to/work/directory/src
-~$ source /opt/ros/noetic/setup.bash
-~$ catkin_init_workspace 
+$ ./create_container.sh
 ```
+O container `quad_ufabc_ros` com acesso ao DISPLAY é criado e iniciado.
 
-- Compile workspace:
-
+4. Para iniciar o container novamente
 ```
-~$ cd ..
-~$ catkin_make
+$ ./start_container.sh
 ```
-- Configure the .bashrc:
-
-```
-~$ echo "source /path/to/work/directory/devel/setup.bash" >> ~/.bashrc
-~$ source ~/.bashrc
-```
-
-- Clone this repository, copy and paste the **src** folder into the work directory.
-
-- Create a virtual environment (in this case, we will use __venv__ from Python, but feel free to use another one):
-
-```
-~$ python3 -m venv venv
-~$ source venv/bin/activate
-```
-
-- On cloned repository, run the python dependencies installation using __pip__:
-```
-~$ pip install -r requirements.txt
-```
-
-## Running application
-
-Initialize Gazebo:
-
-```
-~$ roslaunch quad_ufabc quad.launch
-```
-
-Run simulation
-
-```
-~$ rosrun quad_ufabc main.py
-```
-
-
-## References
-
-[1] SOLÀ, J. Quaternion kinematics for the error-state kalman filter. 2017.
+## VSCode Docker Plugin
+Para trabalhar com o conteúdo do container utilizo o VSCode com o plugin Docker, que permite acessar o conteúdo do container e trabalhar nele.
